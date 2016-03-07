@@ -26,6 +26,7 @@ buildscript {
     // For Apache Rat plugin to ignore non-Git files
     classpath "org.ajoberstar:grgit:1.5.0"
     classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
+    classpath "com.moowork.gradle:gradle-node-plugin:0.11"
   }
 }
 
@@ -764,4 +765,50 @@ project(':connect:file') {
   jar {
     dependsOn copyDependantLibs
   }
+}
+
+
+project(':docs'){
+
+  apply plugin: 'com.moowork.node'
+
+  clean.doFirst {
+    delete "$buildDir/_book/"
+  }
+
+  node {
+    // Version of node to use.
+    version = '5.7.1'
+
+    // Version of npm to use.
+    npmVersion = '3.6.0'
+
+    // Base URL for fetching node distributions (change if you have a mirror).
+    distBaseUrl = 'http://nodejs.org/dist'
+
+    // If true, it will download node using above parameters.
+    // If false, it will try to use globally installed node.
+    download = false
+    workDir = file("${project.buildDir}/nodejs")
+  }
+
+  task gitbookInstallPlugins(type: Exec, dependsOn: 'npmInstall'){
+    inputs.dir('${project.projectDir}/docs')
+    executable = 'node_modules/.bin/gitbook'
+    args = ['install']
+  }
+
+  task buildDocs(type: Exec, dependsOn: 'gitbookInstallPlugins') {
+
+    inputs.dir('${project.projectDir}/docs')
+    executable = 'node_modules/.bin/gitbook'
+    args = ['build', './', "${project.buildDir}/_book", "--verbose"]
+  }
+
+  task buildDocsPdf(type: Exec, dependsOn: 'gitbookInstallPlugins') {
+    inputs.dir('${project.projectDir}/docs')
+    executable = 'node_modules/.bin/gitbook'
+    args = ['pdf', './', "${project.buildDir}/book.pdf", "--verbose"]
+  }
+
 }

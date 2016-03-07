@@ -42,3 +42,5 @@ docs/producer_config.html
 docs/consumer_config.html
 docs/kafka_config.html
 docs/connect_config.html
+docs/_book/
+docs/node_modules/

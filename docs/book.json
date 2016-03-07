@@ -1,0 +1,38 @@
+{
+  "title": "Apache Kafka Documentation",
+  "description": "User Guide and Reference Documentation",
+  "extension": "pdf",
+  "github": "apache/kafka",
+  "githubHost": "https://github.com/",
+  "gitbook": ">=2.0.0",
+
+  "links": {
+    "home": "http://kafka.apache.org/",
+    "about": "http://kafka.apache.org",
+    "issues": "https://issues.apache.org/jira/browse/KAFKA",
+    "contribute": "http://kafka.apache.org/contributing.html",
+
+    "sharing": {
+      "google": null,
+      "facebook": null,
+      "twitter": "https://twitter.com/apachekafka"
+    }
+  },
+
+  "structure": {
+  },
+
+  "plugins" : [  "anchors" ],
+
+  "pdf": {
+    "toc": true,
+    "fontSize": 12,
+    "paperSize": "a4",
+    "margin": {
+      "right": 62,
+      "left": 62,
+      "top": 36,
+      "bottom": 36
+    }
+  }
+}
